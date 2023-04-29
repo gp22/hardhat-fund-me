@@ -17,7 +17,7 @@ describe('FundMe', async function () {
 
   describe('constructor', async function () {
     it('Sets the aggregator address correctly', async function () {
-      const response = await fundMe.s_priceFeed()
+      const response = await fundMe.getPriceFeed()
       expect(response).to.equal(mockV3Aggregator.address)
     })
   })
@@ -31,13 +31,13 @@ describe('FundMe', async function () {
 
     it('Updates the amount funded data structure', async function () {
       await fundMe.fund({ value: sendValue })
-      const response = await fundMe.s_addressToAmountFunded(deployer)
+      const response = await fundMe.getAddressToAmountFunded(deployer)
       expect(response.toString()).to.equal(sendValue.toString())
     })
 
     it('Adds funder to array of funders', async function () {
       await fundMe.fund({ value: sendValue })
-      const funder = await fundMe.s_funders(0)
+      const funder = await fundMe.getFunder(0)
       expect(funder).to.equal(deployer)
     })
   })
@@ -105,11 +105,11 @@ describe('FundMe', async function () {
       ).to.equal(endingDeployerBalance.add(gasCost).toString())
 
       // Make sure the funders are reset
-      await expect(fundMe.s_funders(0)).to.be.reverted
+      await expect(fundMe.getFunder(0)).to.be.reverted
 
       accounts.forEach(async (account, i) => {
         if (i !== 0) {
-          const balance = await fundMe.s_addressToAmountFunded(account.address)
+          const balance = await fundMe.getAddressToAmountFunded(account.address)
 
           expect(balance).to.equal(0)
         }
@@ -184,11 +184,11 @@ describe('FundMe', async function () {
       ).to.equal(endingDeployerBalance.add(gasCost).toString())
 
       // Make sure the funders are reset
-      await expect(fundMe.s_funders(0)).to.be.reverted
+      await expect(fundMe.getFunder(0)).to.be.reverted
 
       accounts.forEach(async (account, i) => {
         if (i !== 0) {
-          const balance = await fundMe.s_addressToAmountFunded(account.address)
+          const balance = await fundMe.getAddressToAmountFunded(account.address)
 
           expect(balance).to.equal(0)
         }
