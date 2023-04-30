@@ -38,6 +38,7 @@ module.exports = {
     noColors: true,
     currency: 'USD',
     coinmarketcap: COINMARKETCAP_API_KEY,
+    token: 'ETH',
   },
   namedAccounts: {
     deployer: {
