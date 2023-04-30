@@ -1,13 +1,22 @@
-# Sample Hardhat Project
+# FundMe
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+An Ethereum crowd funding project.
 
-Try running some of the following tasks:
+The `.env` file uses the following syntax.
+
+```
+SEPOLIA_PRIVATE_KEY=your-sepolia-private-key
+SEPOLIA_RPC_URL=https://your-sepolia-rpc-url.com
+ETHERSCAN_API_KEY=your-etherscan-api-key
+COINMARKETCAP_API_KEY=your-coinmarketcap-api-key
+```
+
+Try running some tasks:
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+yarn hardhat deploy
+yarn hardhat deploy --tags mocks
+yarn hardhat deploy --network sepolia
+yarn hardhat test
+yarn hardhat test --network sepolia
 ```
