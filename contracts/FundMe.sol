@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
-import '@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol';
-import './PriceConverter.sol';
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "./PriceConverter.sol";
 
 error FundMe__NotOwner();
 
@@ -47,7 +47,7 @@ contract FundMe {
     function fund() public payable {
         require(
             msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
-            'You need to spend more ETH!'
+            "You need to spend more ETH!"
         );
         s_addressToAmountFunded[msg.sender] += msg.value;
         s_funders.push(msg.sender);
@@ -65,8 +65,8 @@ contract FundMe {
         s_funders = new address[](0);
         (bool callSuccess, ) = payable(msg.sender).call{
             value: address(this).balance
-        }('');
-        require(callSuccess, 'Call failed');
+        }("");
+        require(callSuccess, "Call failed");
     }
 
     function cheaperWithdraw() public onlyOwner {
@@ -81,7 +81,7 @@ contract FundMe {
             s_addressToAmountFunded[funder] = 0;
         }
         s_funders = new address[](0);
-        (bool callSuccess, ) = i_owner.call{value: address(this).balance}('');
+        (bool callSuccess, ) = i_owner.call{value: address(this).balance}("");
         require(callSuccess);
     }
 
