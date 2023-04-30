@@ -1,11 +1,10 @@
 const { deployments, ethers, getNamedAccounts, network } = require('hardhat')
 const { expect, assert } = require('chai')
 const { developmentChains } = require('../../helper-hardhat-config')
-const isDevelopmentChain = developmentChains.includes(network.name)
+const isTestNet = !developmentChains.includes(network.name)
 
-isDevelopmentChain
-  ? describe.skip
-  : describe('FundMe', async function () {
+isTestNet
+  ? describe('FundMe', async function () {
       let fundMe, deployer
       const sendValue = ethers.utils.parseEther('1') // 1 ETH
 
@@ -21,3 +20,4 @@ isDevelopmentChain
         expect(endingBalance.toString()).to.equal('0')
       })
     })
+  : describe.skip

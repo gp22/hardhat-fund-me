@@ -1,11 +1,10 @@
 const { deployments, ethers, getNamedAccounts, network } = require('hardhat')
 const { expect, assert } = require('chai')
 const { developmentChains } = require('../../helper-hardhat-config')
-const isTestNet = !developmentChains.includes(network.name)
+const isDevelopmentChain = developmentChains.includes(network.name)
 
-isTestNet
-  ? describe.skip
-  : describe('FundMe', async function () {
+isDevelopmentChain
+  ? describe('FundMe', async function () {
       let fundMe, deployer, mockV3Aggregator
       const sendValue = ethers.utils.parseEther('1') // 1 ETH
 
@@ -223,3 +222,4 @@ isTestNet
         })
       })
     })
+  : describe.skip
