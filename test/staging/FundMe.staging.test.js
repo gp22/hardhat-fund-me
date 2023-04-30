@@ -16,7 +16,7 @@ isDevelopmentChain
 
       it('Allows people to fund and withdraw', async function () {
         await fundMe.fund({ value: sendValue })
-        await fundMe.widthdraw()
+        await fundMe.withdraw()
         const endingBalance = await fundMe.provider.getBalance(fundMe.address)
         expect(endingBalance.toString()).to.equal('0')
       })
